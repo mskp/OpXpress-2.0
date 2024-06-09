@@ -1,0 +1,27 @@
+{
+  "name": "server",
+  "author": {
+    "name": "Sushant Pandey",
+    "email": "sushhantpandey@gmail.com",
+    "url": "https://www.sushant.fun"
+  },
+  "module": "src/server.ts",
+  "type": "module",
+  "scripts": {
+    "start": "bun src/server.ts",
+    "start:dev": "bun --watch src/server.ts"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "prisma": "^5.15.0"
+  }
+}
