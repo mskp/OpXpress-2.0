@@ -6,3 +6,67 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id       String  @id @default(auto()) @map("_id") @db.ObjectId
+  email    String  @unique
+  password String
+  Cart     Cart[]
+  Order    Order[]
+
+  @@map("users")
+}
+
+model Product {
+  id            String  @id @default(auto()) @map("_id") @db.ObjectId
+  slug          String
+  name          String
+  price         String
+  originalPrice String
+  brand         String
+  imageUrl      String
+  discount      String
+  category      String
+  Cart          Cart[]
+  Order         Order[]
+
+  @@map("products")
+}
+
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @db.ObjectId
+  productId String   @unique @db.ObjectId
+  quantity  Int      @default(1)
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+  createdOn DateTime @default(now())
+
+  @@map("cart")
+}
+
+model Order {
+  id          String    @id @default(auto()) @map("_id") @db.ObjectId
+  userId      String    @db.ObjectId
+  productId   String    @db.ObjectId
+  quantity    Int       @default(1)
+  orderInfoId String    @unique @db.ObjectId
+  orderInfo   OrderInfo @relation(fields: [orderInfoId], references: [id])
+  user        User      @relation(fields: [userId], references: [id])
+  product     Product   @relation(fields: [productId], references: [id])
+  createdOn   DateTime  @default(now())
+
+  @@map("orders")
+}
+
+model OrderInfo {
+  id       String @id @default(auto()) @map("_id") @db.ObjectId
+  fullname String
+  phone    String
+  address  String
+  pincode  String
+  city     String
+  Order    Order?
+
+  @@map("order_info")
+}
