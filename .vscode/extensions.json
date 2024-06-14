@@ -1,0 +1,13 @@
+{
+  "recommendations": [
+    "aaron-bond.better-comments",
+    "vivaxy.vscode-conventional-commits",
+    "ms-azuretools.vscode-docker",
+    "dotenv.dotenv-vscode",
+    "dsznajder.es7-react-js-snippets",
+    "postman.postman-for-vscode",
+    "prisma.prisma",
+    "esbenp.prettier-vscode",
+    "bradlc.vscode-tailwindcss"
+  ]
+}
