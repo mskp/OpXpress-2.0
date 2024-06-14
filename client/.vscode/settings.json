@@ -1,0 +1,6 @@
+{
+  "workbench.editor.customLabels.patterns": {
+    "**/app/**/page.tsx": "${dirname}.tsx",
+    "**/app/**/loading.tsx": "loading-${dirname}.tsx"
+  }
+}
