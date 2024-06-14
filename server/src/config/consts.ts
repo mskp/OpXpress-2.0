@@ -9,10 +9,10 @@ export const ACCESS_TOKEN_EXPIRATION =
 
 export const ACCESS_TOKEN_KEY_NAME = "opxpress_access_token";
 
-export const ALLOWED_ORIGINS = process.env.ALLOWED_ORIGINS;
+export const ALLOWED_ORIGIN = process.env.ALLOWED_ORIGIN;
 
 export const CORS_OPTIONS: CorsOptions = {
-  origin: ALLOWED_ORIGINS,
+  origin: ALLOWED_ORIGIN,
   optionsSuccessStatus: 200,
 };
 

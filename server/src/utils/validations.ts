@@ -25,3 +25,22 @@ export const checkoutSchema = z.object({
     .regex(/^\d+$/, "Pincode must contain only digits"),
   city: z.string().min(1, "City is required"),
 });
+
+/**
+ * Schema for validating the query param of fetch products controller
+ */
+export const fetchProductsQuerySchema = z.object({
+  limit: z.coerce.number().optional(),
+  category: z
+    .enum(["men's clothing", "women's clothing", "accessories"])
+    .optional(),
+});
+
+/**
+ * Schema for validating the query params of fetch products controller
+ */
+export const searchProductsQuerySchema = z.object({
+  q: z.string().min(1, "Search query is required"),
+  limit: z.number().int().optional(),
+  offset: z.number().int().optional(),
+});

@@ -32,10 +32,10 @@ export async function GetAllOrders(req: ExpressRequest, res: ExpressResponse) {
     });
 
     // Return the orders as a JSON response
-    res.json(orders);
+    res.json({ orders, success: true });
   } catch (error) {
     // Log any errors and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
+    logger.error(error);
     if (error instanceof ZodError)
       res.status(400).json({ message: error.errors, success: false });
     else res.sendStatus(500);
@@ -103,7 +103,7 @@ export async function CreateNewOrder(
     res.sendStatus(200);
   } catch (error) {
     // Log any errors and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
+    logger.error(error);
     if (error instanceof ZodError)
       res.status(400).json({ message: error.errors, success: false });
     else res.sendStatus(500);

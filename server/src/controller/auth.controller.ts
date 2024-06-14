@@ -68,12 +68,10 @@ export async function Signup(req: ExpressRequest, res: ExpressResponse) {
       .json({ message: "User created successfully", user: newUser });
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
-
+    logger.error(error);
     if (error instanceof ZodError)
       res.status(400).json({ error: error.errors, success: false });
-
-    res.sendStatus(500);
+    else res.sendStatus(500);
   }
 }
 
@@ -122,11 +120,10 @@ export async function Login(req: ExpressRequest, res: ExpressResponse) {
       .json({ message: "Login successful", success: true, token });
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
+    logger.error(error);
     if (error instanceof ZodError)
-      res.status(400).json({ message: error.errors, success: false });
-
-    res.sendStatus(500);
+      res.status(400).json({ error: error.errors, success: false });
+    else res.sendStatus(500);
   }
 }
 

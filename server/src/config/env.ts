@@ -11,12 +11,7 @@ const environmentSchema = z.object({
 
   ACCESS_TOKEN_SECRET: z.string(),
   ACCESS_TOKEN_EXPIRATION: z.string().optional(),
-  ALLOWED_ORIGINS: z
-    .string()
-    .regex(
-      /^(\s*https?:\/\/[^\s,]+,)*\s*https?:\/\/[^\s,]+$/,
-      "Invalid ALLOWED_ORIGINS format. Must be a comma-separated list of URLs.",
-    ),
+  ALLOWED_ORIGIN: z.string(),
   PORT: z.coerce.number().optional(),
 });
 
@@ -24,7 +19,7 @@ const environmentSchema = z.object({
 const {
   DATABASE_URL,
   ACCESS_TOKEN_SECRET,
-  ALLOWED_ORIGINS,
+  ALLOWED_ORIGIN,
   ACCESS_TOKEN_EXPIRATION,
   PORT,
 } = process.env;
@@ -33,7 +28,7 @@ const {
 const parsedResults = environmentSchema.safeParse({
   DATABASE_URL,
   ACCESS_TOKEN_SECRET,
-  ALLOWED_ORIGINS,
+  ALLOWED_ORIGIN,
   ACCESS_TOKEN_EXPIRATION,
   PORT,
 });

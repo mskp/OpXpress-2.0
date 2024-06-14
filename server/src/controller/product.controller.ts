@@ -2,76 +2,37 @@ import { ZodError } from "zod";
 import logger from "../config/logger";
 import prisma from "../config/prisma";
 import type { ExpressRequest, ExpressResponse } from "../config/types";
+import {
+  fetchProductsQuerySchema,
+  searchProductsQuerySchema,
+} from "../utils/validations";
 
 /**
- * Retrieve all products from the database,
- * with an optional limit on the number of products returned.
+ * Retrieve products from the database,
+ * optionally filtered by category and limited by a specified number.
  * @param {ExpressRequest} req - Express request object.
  * @param {ExpressResponse} res - Express response object.
  */
-export async function GetAllProducts(
-  req: ExpressRequest,
-  res: ExpressResponse,
-) {
+export async function GetProducts(req: ExpressRequest, res: ExpressResponse) {
   try {
-    // Parse the limit query parameter, default to no limit if not provided
-    const limit = parseInt(req.query.limit as string, 10) || undefined;
+    // Validate query parameters using Zod schema
+    const { limit, category } = fetchProductsQuerySchema.parse(req.query);
 
-    // Validate limit if provided
-    if (limit !== undefined && (isNaN(limit) || limit <= 0)) {
-      return res.status(400).send("Invalid limit parameter.");
-    }
+    // Prepare the filter options for Prisma query
+    const where = category ? { category } : {};
+    const take = limit;
 
-    // Retrieve products from the database with optional limit
+    // Retrieve products from the database with optional filters and limit
     const products = await prisma.product.findMany({
-      take: limit,
+      where,
+      take,
     });
 
     res.json({ products, success: true });
   } catch (error) {
-    if (error instanceof Error) logger.error(error.message);
+    logger.error(error);
     if (error instanceof ZodError)
-      res.status(400).json({ message: error.errors, success: false });
-
-    res.sendStatus(500);
-  }
-}
-
-/**
- * Retrieve products by category from the database.
- * @param {ExpressRequest} req - Express request object.
- * @param {ExpressResponse} res - Express response object.
- */
-export async function GetProductsByCategory(
-  req: ExpressRequest,
-  res: ExpressResponse,
-) {
-  try {
-    const category = req.params.category as string;
-
-    // Validate category parameter
-    if (!category) {
-      return res.status(400).send("Category parameter is required.");
-    }
-
-    // Retrieve products by category from the database
-    const products = await prisma.product.findMany({
-      where: {
-        category,
-      },
-    });
-
-    if (!products) {
-      return res
-        .status(404)
-        .json({ message: `No products found for category ${category}` });
-    }
-
-    res.json({ products, success: true });
-  } catch (error) {
-    if (error instanceof Error) logger.error(error.message);
-    if (error instanceof ZodError)
-      res.status(400).json({ message: error.errors, success: false });
+      return res.status(400).json({ message: error.errors, success: false });
 
     res.sendStatus(500);
   }
@@ -110,9 +71,43 @@ export async function GetProductById(
 
     res.json(product);
   } catch (error) {
-    if (error instanceof Error) logger.error(error.message);
+    logger.error(error);
+    res.sendStatus(500);
+  }
+}
+
+/**
+ * Search products in the database by name or description.
+ * @param {ExpressRequest} req - Express request object.
+ * @param {ExpressResponse} res - Express response object.
+ */
+export async function SearchProducts(
+  req: ExpressRequest,
+  res: ExpressResponse,
+) {
+  try {
+    // Validate query parameters using Zod schema
+    const { q, limit, offset } = searchProductsQuerySchema.parse(req.query);
+
+    // Prepare the search options for Prisma query
+    const searchQuery = q.toLowerCase();
+    const take = limit || 10; // Default limit to 10 if not specified
+    const skip = offset || 0; // Default offset to 0 if not specified
+
+    // Retrieve products from the database with search filters
+    const products = await prisma.product.findMany({
+      where: {
+        name: { contains: searchQuery, mode: "insensitive" },
+      },
+      take,
+      skip,
+    });
+
+    res.json({ products, success: true });
+  } catch (error) {
+    logger.error(error);
     if (error instanceof ZodError)
-      res.status(400).json({ message: error.errors, success: false });
+      return res.status(400).json({ message: error.errors, success: false });
 
     res.sendStatus(500);
   }

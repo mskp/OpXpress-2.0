@@ -49,12 +49,19 @@ export async function GetAllCartItems(
       },
     });
 
+    // Calculate the grand total
+    const grandTotal = cartItems.reduce((total, { product, quantity }) => {
+      const price = parseFloat(product.price.replace(/[^0-9.-]+/g, ""));
+      return total + price * quantity;
+    }, 0);
+
     // Return the cart items as a JSON response
-    res.json(cartItems);
+    res.json({ cartItems, grandTotal, success: true });
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
-    if (error instanceof ZodError) res.status(400).json(error.errors);
+    logger.error(error);
+    if (error instanceof ZodError)
+      res.status(400).json({ error: error.errors, success: false });
     else res.sendStatus(500);
   }
 }
@@ -109,8 +116,9 @@ export async function AddToCart(req: ExpressRequest, res: ExpressResponse) {
     res.sendStatus(200);
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
-    if (error instanceof ZodError) res.status(400).json(error.errors);
+    logger.error(error);
+    if (error instanceof ZodError)
+      res.status(400).json({ error: error.errors, success: false });
     else res.sendStatus(500);
   }
 }
@@ -153,8 +161,9 @@ export async function DeleteCartItem(
     res.sendStatus(200);
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
-    if (error instanceof ZodError) res.status(400).json(error.errors);
+    logger.error(error);
+    if (error instanceof ZodError)
+      res.status(400).json({ error: error.errors, success: false });
     else res.sendStatus(500);
   }
 }
@@ -178,8 +187,9 @@ export async function ClearCartController(
     res.sendStatus(200);
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
-    if (error instanceof ZodError) res.status(400).json(error.errors);
+    logger.error(error);
+    if (error instanceof ZodError)
+      res.status(400).json({ error: error.errors, success: false });
     else res.sendStatus(500);
   }
 }
@@ -252,8 +262,9 @@ export async function UpdateCartItem(
     res.sendStatus(200);
   } catch (error) {
     // Log the error and return appropriate status codes
-    if (error instanceof Error) logger.error(error.message);
-    if (error instanceof ZodError) res.status(400).json(error.errors);
+    logger.error(error);
+    if (error instanceof ZodError)
+      res.status(400).json({ error: error.errors, success: false });
     else res.sendStatus(500);
   }
 }
