@@ -3,6 +3,7 @@ import logger from "../config/logger";
 import prisma from "../config/prisma";
 import type { ExpressRequest, ExpressResponse } from "../config/types";
 import {
+  fetchProductsByProductIdParamSchema,
   fetchProductsQuerySchema,
   searchProductsQuerySchema,
 } from "../utils/validations";
@@ -31,6 +32,7 @@ export async function GetProducts(req: ExpressRequest, res: ExpressResponse) {
     res.json({ products, success: true });
   } catch (error) {
     logger.error(error);
+
     if (error instanceof ZodError)
       return res.status(400).json({ message: error.errors, success: false });
 
@@ -48,12 +50,9 @@ export async function GetProductById(
   res: ExpressResponse,
 ) {
   try {
-    const productId = req.params.id as string;
-
-    // Validate productId parameter
-    if (!productId) {
-      return res.status(400).send("Product ID parameter is required.");
-    }
+    const { id: productId } = fetchProductsByProductIdParamSchema.parse(
+      req.params,
+    );
 
     // Retrieve product by ID from the database
     const product = await prisma.product.findUnique({
@@ -64,14 +63,18 @@ export async function GetProductById(
 
     if (!product) {
       return res.status(404).json({
-        message: `Product not found for ID ${productId}`,
+        message: `Product not found for Id ${productId}`,
         success: false,
       });
     }
 
-    res.json(product);
+    res.json({ product, success: true });
   } catch (error) {
     logger.error(error);
+
+    if (error instanceof ZodError)
+      return res.status(400).json({ message: error.errors, success: false });
+
     res.sendStatus(500);
   }
 }
@@ -106,6 +109,7 @@ export async function SearchProducts(
     res.json({ products, success: true });
   } catch (error) {
     logger.error(error);
+
     if (error instanceof ZodError)
       return res.status(400).json({ message: error.errors, success: false });
 

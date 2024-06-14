@@ -16,5 +16,4 @@ productRouter.get("/search", SearchProducts); // Handle GET requests to retrieve
 // Route to get a product by its ID
 productRouter.get("/:id", GetProductById); // Handle GET requests to retrieve a product by its ID
 
-
 export default productRouter; // Export the router instance for use in other parts of the application

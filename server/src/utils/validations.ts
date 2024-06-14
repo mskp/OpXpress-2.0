@@ -44,3 +44,10 @@ export const searchProductsQuerySchema = z.object({
   limit: z.number().int().optional(),
   offset: z.number().int().optional(),
 });
+
+/**
+ * Schema for validating the path params of fetch products by id controller
+ */
+export const fetchProductsByProductIdParamSchema = z.object({
+  id: z.string().regex(/^[0-9a-fA-F]{24}$/),
+});
