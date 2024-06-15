@@ -58,7 +58,7 @@ export default function CheckoutDialog(): JSX.Element | null {
                   <Label htmlFor="fullname">Full Name</Label>
                   <Input
                     id="fullname"
-                    placeholder="John Doe"
+                    placeholder="Enter Full Name"
                     type="text"
                     {...register("fullname")}
                   />
@@ -69,11 +69,11 @@ export default function CheckoutDialog(): JSX.Element | null {
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone</Label>
+                  <Label htmlFor="phone">Mobile</Label>
                   <Input
                     maxLength={10}
                     id="phone"
-                    placeholder="1234567890"
+                    placeholder="Enter Mobile Number"
                     type="tel"
                     {...register("phone")}
                   />
@@ -87,7 +87,7 @@ export default function CheckoutDialog(): JSX.Element | null {
                   <Label htmlFor="address">Address</Label>
                   <Input
                     id="address"
-                    placeholder="123 Main St"
+                    placeholder="Enter Address"
                     type="text"
                     {...register("address")}
                   />
@@ -103,8 +103,8 @@ export default function CheckoutDialog(): JSX.Element | null {
                     maxLength={6}
                     minLength={6}
                     id="pincode"
-                    placeholder="12345"
-                    type="number"
+                    placeholder="Enter Pincode"
+                    type="text"
                     {...register("pincode")}
                   />
                   {errors.pincode && (
@@ -117,7 +117,7 @@ export default function CheckoutDialog(): JSX.Element | null {
                   <Label htmlFor="city">City</Label>
                   <Input
                     id="city"
-                    placeholder="New York"
+                    placeholder="Enter City"
                     type="text"
                     {...register("city")}
                   />
