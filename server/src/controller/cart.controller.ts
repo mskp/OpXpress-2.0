@@ -47,6 +47,9 @@ export async function GetAllCartItems(
       include: {
         product: true,
       },
+      orderBy: {
+        createdOn: "desc",
+      },
     });
 
     // Calculate the grand total
