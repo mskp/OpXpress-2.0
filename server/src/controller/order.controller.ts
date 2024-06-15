@@ -29,6 +29,9 @@ export async function GetAllOrders(req: ExpressRequest, res: ExpressResponse) {
         orderInfo: true,
         product: true,
       },
+      orderBy: {
+        createdOn: "desc",
+      },
     });
 
     // Return the orders as a JSON response
