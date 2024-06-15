@@ -12,17 +12,17 @@ const userSchema = z.object({
 
 // Define schema for adding a product to the cart
 const addToCartSchema = z.object({
-  productId: z.string(),
+  productId: z.string().regex(/^[0-9a-fA-F]{24}$/),
 });
 
 // Define schema for deleting a product from the cart
 const deleteCartItemSchema = z.object({
-  productId: z.string(),
+  productId: z.string().regex(/^[0-9a-fA-F]{24}$/),
 });
 
 // Define schema for updating the quantity of a product in the cart
 const updateCartItemSchema = z.object({
-  productId: z.string(),
+  productId: z.string().regex(/^[0-9a-fA-F]{24}$/),
   operation: z.enum(["INCREASE_QUANTITY", "DECREASE_QUANTITY"]),
 });
 
