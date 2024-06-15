@@ -65,7 +65,11 @@ export async function Signup(req: ExpressRequest, res: ExpressResponse) {
 
     res
       .status(201)
-      .json({ message: "User created successfully", user: newUser });
+      .json({
+        message: "User created successfully",
+        user: newUser,
+        success: true,
+      });
   } catch (error) {
     // Log the error and return appropriate status codes
     logger.error(error);
