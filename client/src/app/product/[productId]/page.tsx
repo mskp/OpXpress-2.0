@@ -2,12 +2,26 @@ import { AddToCartButton } from "@/components/cart/buttons";
 import ErrorComponent from "@/components/misc/error-component";
 import axios from "@/config/axios.config";
 import { Product } from "@/config/types";
+import { Metadata } from "next";
 import Image from "next/image";
+
+type Props = {
+  params: { productId: string };
+};
 
 type FetchProductbyIdReturnType = {
   success: boolean;
   product: Product;
 };
+
+export async function generateMetadata({
+  params: { productId },
+}: Props): Promise<Metadata> {
+  const data = await fetchProductbyId(productId);
+  return {
+    title: `OpXpress - ${data.product.name}`,
+  };
+}
 
 async function fetchProductbyId(
   productId: string,
@@ -59,20 +73,20 @@ async function ProductPage({
             />
           </div>
           <div className="p-6 w-full lg:w-1/2 lg:p-0">
-            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-800 mb-4">
+            <h1 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-gray-200 mb-4">
               {name}
             </h1>
-            <span className="block text-gray-600 mb-2 uppercase">
+            <span className="block text-gray-400 mb-2 uppercase">
               {brand} &bull; {category} &bull; {discount}
             </span>
-            <div className="text-gray-600 mb-4">
+            <div className="text-gray-400 mb-4">
               <p className="text-lg">
                 <span className="line-through mr-2">{originalPrice}</span>
                 {price}
               </p>
             </div>
-            <p className="text-gray-600 mb-4 lg:text-lg">4.0 ★★★★</p>
-            <div className="text-gray-600 mb-6">
+            <p className="mb-4 lg:text-lg">4.0 ★★★★</p>
+            <div className="mb-6">
               <p className="mt-4 md:text-lg lg:text-xl">
                 Free Shipping & Returns
               </p>
@@ -105,7 +119,7 @@ async function ProductPage({
             </div>
             <AddToCartButton
               productId={productId}
-              variant={"default"}
+              variant={"secondary"}
               className="mt-6 w-full py-2 rounded-lg focus:outline-none md:py-3 md:text-lg lg:py-4 lg:text-xl"
             />
           </div>

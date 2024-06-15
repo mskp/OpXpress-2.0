@@ -1,6 +1,7 @@
 "use server";
 
 import axios from "@/config/axios.config";
+import { AxiosError } from "axios";
 import { revalidatePath } from "next/cache";
 
 /**
@@ -22,6 +23,17 @@ export async function addToCart(
     };
   } catch (error) {
     if (error instanceof Error) console.log(error.message);
+
+    if (error instanceof AxiosError) {
+      const message =
+        error.response?.status == 401
+          ? "You must login first"
+          : "Failed adding to cart";
+      return {
+        message,
+        success: false,
+      };
+    }
 
     return {
       message: "Failed adding to cart",

@@ -12,6 +12,7 @@ import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Card, CardContent } from "../ui/card";
+import { useFormStatus } from "react-dom";
 
 // Define the type of the checkout form data
 type CheckoutSchema = z.infer<typeof checkoutSchema>;
@@ -26,14 +27,13 @@ export default function CheckoutDialog(): JSX.Element | null {
   const {
     register,
     handleSubmit,
-    formState: { errors, touchedFields },
+    formState: { errors, touchedFields, isValid },
   } = useForm<CheckoutSchema>({
     resolver: zodResolver(checkoutSchema),
   });
 
   /**
    * Handler for form submission
-   * @param {CheckoutSchema} checkoutDetails - The checkout form data.
    */
   const handleAddToCart: () => void = handleSubmit(async (checkoutDetails) => {
     const ordered = await checkout(checkoutDetails);
@@ -71,9 +71,10 @@ export default function CheckoutDialog(): JSX.Element | null {
                 <div className="space-y-2">
                   <Label htmlFor="phone">Phone</Label>
                   <Input
+                    maxLength={10}
                     id="phone"
                     placeholder="1234567890"
-                    type="text"
+                    type="tel"
                     {...register("phone")}
                   />
                   {errors.phone && (
@@ -99,9 +100,11 @@ export default function CheckoutDialog(): JSX.Element | null {
                 <div className="space-y-2">
                   <Label htmlFor="pincode">Pincode</Label>
                   <Input
+                    maxLength={6}
+                    minLength={6}
                     id="pincode"
                     placeholder="12345"
-                    type="text"
+                    type="number"
                     {...register("pincode")}
                   />
                   {errors.pincode && (
@@ -124,21 +127,25 @@ export default function CheckoutDialog(): JSX.Element | null {
                     </p>
                   )}
                 </div>
-                <Button
-                  disabled={
-                    Object.values(errors)?.length > 0 ||
-                    Object.values(touchedFields)?.length === 0
-                  }
-                  className="w-full mt-4 rounded-full"
-                  type="submit"
-                >
-                  Checkout
-                </Button>
+                <CheckoutButton isDisabled={!isValid} />
               </div>
             </form>
           </CardContent>
         </Card>
       </DialogContent>
     </Dialog>
+  );
+}
+
+function CheckoutButton({ isDisabled = false }: { isDisabled?: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      disabled={pending || isDisabled}
+      className="w-full mt-4 rounded-full"
+      type="submit"
+    >
+      {pending ? "Checking out..." : "Checkout"}
+    </Button>
   );
 }

@@ -10,8 +10,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BrandIcon from "../misc/brand-icon";
 import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 import { AuthenticatedDropdown, UnauthenticatedDropdown } from "./drop-down";
+import SearchBar from "./search-bar";
 
 /**
  * The Navbar component displays the main navigation bar of the application.
@@ -54,12 +54,9 @@ function Navbar({ authenticated }: { authenticated: boolean }): JSX.Element {
             <BrandIcon />
           </div>
           <div className="relative w-1/2 hidden md:block z-50">
-            <Input
-              className="border-none focus:ring-0 text-black rounded-full w-full relative z-50"
-              placeholder="Search for products..."
-              type="search"
-              value={searchTerm}
-              onChange={handleSearchChange}
+            <SearchBar
+              handleSearchChange={handleSearchChange}
+              searchTerm={searchTerm}
             />
           </div>
           <ul className="flex space-x-6 items-center relative z-50">
@@ -95,12 +92,9 @@ function Navbar({ authenticated }: { authenticated: boolean }): JSX.Element {
 
       <div className="block md:hidden bg-zinc-900 text-white bg-opacity-90 backdrop-blur-xl p-4 sticky top-0 z-50">
         <div className="relative w-full max-w-md mx-auto z-50">
-          <Input
-            className="border-none focus:ring-0 rounded-full text-black w-full relative z-50"
-            placeholder="Search for products..."
-            type="search"
-            value={searchTerm}
-            onChange={handleSearchChange}
+          <SearchBar
+            handleSearchChange={handleSearchChange}
+            searchTerm={searchTerm}
           />
         </div>
       </div>

@@ -48,7 +48,7 @@ function BrandingCarousel(): JSX.Element {
                     width={image.width}
                     src={image.src}
                     alt={"branding-image"}
-                    className="w-full h-full"
+                    className="w-full h-full rounded-lg"
                   />
                 </CardContent>
               </Card>

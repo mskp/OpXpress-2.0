@@ -20,7 +20,7 @@ function CartComponent({
       {cartItems.map(({ product, quantity }, index) => (
         <div
           key={index}
-          className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 "
+          className="rounded-3xl border border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4 "
         >
           <div className="col-span-12 lg:col-span-2 img box">
             <Image
@@ -33,12 +33,12 @@ function CartComponent({
           </div>
           <div className="col-span-12 lg:col-span-10 detail w-full lg:pl-3">
             <div className="flex items-center justify-between w-full mb-4">
-              <h5 className="font-manrope font-bold text-2xl leading-9 text-gray-900 truncate">
+              <h5 className="font-manrope font-bold text-2xl leading-9  truncate">
                 {product.name}
               </h5>
               <DeleteFromCartButton productId={product.id} />
             </div>
-            <p className="font-normal text-base leading-7 text-gray-500 mb-6 capitalize flex gap-2">
+            <p className="font-normal text-base leading-7 mb-6 capitalize flex gap-2">
               <span className="text-blue-500">
                 {product.price} X {quantity}
               </span>
@@ -50,7 +50,7 @@ function CartComponent({
             <div className="flex justify-between items-center">
               <div className="flex items-center gap-4">
                 <DecrementButton productId={product.id} quantity={quantity} />
-                <p className="border border-gray-200 rounded-full w-10 aspect-square outline-none text-gray-900 font-semibold text-sm py-1.5 px-3 bg-gray-100  text-center">
+                <p className="border border-gray-200 rounded-full w-10 aspect-square outline-none  font-semibold text-sm py-1.5 px-3 bg-neutral-900  text-center">
                   {quantity}
                 </p>
                 <IncrementButton productId={product.id} quantity={quantity} />
@@ -64,8 +64,8 @@ function CartComponent({
         </div>
       ))}
 
-      <div className="flex flex-col md:flex-row items-center md:items-center justify-between lg:px-6 pb-6 border-b border-gray-200 max-lg:max-w-lg max-lg:mx-auto">
-        <h5 className="text-gray-900 font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">
+      <div className="flex flex-col md:flex-row items-center md:items-center justify-between lg:px-6 pb-6 max-lg:max-w-lg max-lg:mx-auto">
+        <h5 className=" font-manrope font-semibold text-2xl leading-9 w-full max-md:text-center max-md:mb-4">
           Subtotal
         </h5>
 

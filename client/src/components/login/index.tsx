@@ -26,12 +26,11 @@ type LoginSchema = z.infer<typeof loginSchema>;
  * Represents the login component
  */
 export default function LoginComponent(): JSX.Element {
-  const { pending } = useFormStatus();
   const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
   });
@@ -88,25 +87,36 @@ export default function LoginComponent(): JSX.Element {
                 </p>
               )}
             </div>
-            <Button className="w-full mt-4 rounded-full" type="submit">
-              Login
-            </Button>
+            <LoginButton isDisabled={!isValid} />
           </div>
         </form>
       </CardContent>
       <CardFooter className="pt-0 !flex-col">
         <div className="flex justify-center items-center mt-4">
-          <p>Dont have an account?</p>{" "}
+          <p>Dont have an account?</p>
           <Button
-            disabled={pending}
             onClick={() => router.replace("/signup")}
             variant={"link"}
-            className="text-indigo-600 hover:underline"
+            className="text-indigo-400 hover:underline"
           >
             Signup
           </Button>
         </div>
       </CardFooter>
     </Card>
+  );
+}
+
+function LoginButton({ isDisabled = false }: { isDisabled?: boolean }) {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button
+      disabled={pending || isDisabled}
+      className="w-full mt-4 rounded-full"
+      type="submit"
+    >
+      {pending ? "Logging in..." : "Login"}
+    </Button>
   );
 }

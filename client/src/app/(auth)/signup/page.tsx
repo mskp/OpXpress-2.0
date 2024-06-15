@@ -2,7 +2,7 @@ import SignupComponent from "@/components/signup";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "OpXpress | Create New Account",
+  title: "OpXpress - Create New Account",
 };
 
 /**

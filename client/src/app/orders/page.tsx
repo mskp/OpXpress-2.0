@@ -49,7 +49,7 @@ async function OrdersPage(): Promise<JSX.Element> {
         {data.orders.map((order) => (
           <div
             key={order.id}
-            className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4"
+            className="rounded-3xl border border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4"
           >
             <div className="col-span-12 lg:col-span-2 img-box">
               <Image
@@ -62,11 +62,11 @@ async function OrdersPage(): Promise<JSX.Element> {
             </div>
             <div className="col-span-12 lg:col-span-10 detail w-full lg:pl-3">
               <div className="flex items-center justify-between w-full mb-4">
-                <h5 className="font-manrope font-bold text-2xl leading-9 text-gray-900 truncate">
+                <h5 className="font-manrope font-bold text-2xl leading-9 truncate">
                   {order.product.name}
                 </h5>
               </div>
-              <p className="font-normal text-base leading-7 text-gray-500 mb-6 capitalize flex gap-2">
+              <p className="font-normal text-base leading-7 text-gray-400 mb-6 capitalize flex gap-2">
                 <span className="text-blue-500">
                   {order.product.price} X {order.quantity}
                 </span>
@@ -75,21 +75,21 @@ async function OrdersPage(): Promise<JSX.Element> {
                 <span className="capitalize">{order.product.category}</span>
               </p>
 
-              <p className="font-normal text-base leading-7 text-gray-500 mb-6">
+              <p className="font-normal text-base leading-7 text-gray-400 mb-6">
                 <strong>Order ID:</strong> {order.id}
               </p>
 
-              <p className="font-normal text-base leading-7 text-gray-500 mb-6">
+              <p className="font-normal text-base leading-7 text-gray-400 mb-6">
                 <strong>Customer Name:</strong> {order.orderInfo.fullname}
               </p>
-              <p className="font-normal text-base leading-7 text-gray-500 mb-6">
+              <p className="font-normal text-base leading-7 text-gray-400 mb-6">
                 <strong>Phone:</strong> {order.orderInfo.phone}
               </p>
-              <p className="font-normal text-base leading-7 text-gray-500 mb-6">
+              <p className="font-normal text-base leading-7 text-gray-400 mb-6">
                 <strong>Address:</strong> {order.orderInfo.address},{" "}
                 {order.orderInfo.city} - {order.orderInfo.pincode}
               </p>
-              <p className="font-normal text-base leading-7 text-gray-500 mb-6">
+              <p className="font-normal text-base leading-7 text-gray-400 mb-6">
                 <strong>Ordered On:</strong>{" "}
                 {new Date(order.createdOn).toLocaleDateString()}
               </p>

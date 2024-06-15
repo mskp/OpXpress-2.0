@@ -33,7 +33,7 @@ export async function login(credentials: AuthParam): Promise<AuthResponse> {
   } catch (error) {
     const message =
       error instanceof AxiosError
-        ? error.response?.data?.message
+        ? error.response?.data?.message ?? "Errro"
         : "Some error occurred";
     return {
       message,

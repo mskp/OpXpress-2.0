@@ -130,18 +130,12 @@ export function AddToCartButton({
    * Handles adding the product to the cart.
    */
   async function handleAddToCart() {
-    const added = await addToCart(productId);
-    if (added) {
-      toast({
-        title: "Added to cart",
-      });
-      return router.push(`/cart`);
-    } else {
-      toast({
-        title: "Failed adding to cart",
-      });
-    }
-    return;
+    const { message, success } = await addToCart(productId);
+    toast({
+      title: message,
+    });
+    if (success) return router.push(`/cart`);
+    router.push("/login");
   }
 
   return (

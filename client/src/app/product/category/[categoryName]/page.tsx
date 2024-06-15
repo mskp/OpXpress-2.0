@@ -1,4 +1,4 @@
-import Products from "@/components/misc/products";
+import Products from "@/components/product/products";
 import type { Category } from "@/config/types";
 
 /**

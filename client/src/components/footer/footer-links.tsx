@@ -29,7 +29,7 @@ export default function FooterLinks({
         <li key={link.name}>
           <Link
             href={link.href}
-            className={`py-1.5 font-normal transition-colors text-[#455A64] hover:text-[#263238]`}
+            className={`py-1.5 font-normal transition-colors text-gray-200 hover:text-[#263238]`}
           >
             {link.name}
           </Link>

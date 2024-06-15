@@ -1,4 +1,4 @@
-export const APP_NAME = "OpXpress 2.0";
+export const APP_NAME = "OpXpress";
 
 export const API_BASE_URL = process.env.API_BASE_URL;
 

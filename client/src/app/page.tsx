@@ -1,6 +1,6 @@
 import BrandingCarousel from "@/components/misc/branding-carousel";
 import CategoryCarousel from "@/components/misc/category-carousel";
-import Products from "@/components/misc/products";
+import Products from "@/components/product/products";
 
 /**
  * Represents the homepage of the application.

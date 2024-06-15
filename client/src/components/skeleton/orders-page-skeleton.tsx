@@ -17,7 +17,7 @@ export default function OrdersPageSkeleton(): JSX.Element {
             key={index}
             className="rounded-3xl border-2 border-gray-200 p-4 lg:p-8 grid grid-cols-12 mb-8 max-lg:max-w-lg max-lg:mx-auto gap-y-4"
           >
-            <div className="col-span-12 lg:col-span-2 img-box">
+            <div className="col-span-12 lg:col-span-2 img-box bg-neutral-900">
               <Skeleton className="h-52 w-full lg:w-[180px] rounded-xl" />
             </div>
             <div className="col-span-12 lg:col-span-10 detail w-full lg:pl-3">

@@ -1,6 +1,7 @@
 import { APP_NAME } from "@/config/consts";
 import { Andika } from "next/font/google";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
 
 const andika = Andika({ subsets: ["latin"], weight: "700" });
 
@@ -15,9 +16,10 @@ function BrandIcon({ isDisabled = false }: { isDisabled?: boolean }) {
       href="/"
       className={`${andika.className} ${
         isDisabled ? "pointer-events-none" : ""
-      } text-xl hover:opacity-70 text-cyan-600`}
+      } text-xl hover:opacity-70 text-red-200 flex items-center gap-1`}
     >
       {APP_NAME}
+      <Badge variant={"outline"}>2.0</Badge>
     </Link>
   );
 }

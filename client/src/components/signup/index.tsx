@@ -16,6 +16,7 @@ import { toast } from "@/components/ui/use-toast";
 import { signupSchema } from "@/lib/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
+import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -29,7 +30,7 @@ export default function SignupComponent(): JSX.Element {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<SignupSchema>({
     resolver: zodResolver(signupSchema),
   });
@@ -40,23 +41,22 @@ export default function SignupComponent(): JSX.Element {
    */
   const onSubmit: () => void = handleSubmit(
     async (credentials: Omit<SignupSchema, "confirmPassword">) => {
-      const { message, success } = await signup(credentials);
+      const signupResponse = await signup(credentials);
 
-      if (success) {
-        toast({
-          title: message,
-          description: "Logging in...",
-        });
+      toast({
+        title: signupResponse.message,
+        description: "Logging in...",
+      });
+
+      if (signupResponse.success) {
         const loginResponse = await login(credentials);
 
-        if (success) {
-          toast({
-            title: loginResponse.message,
-          });
-        }
+        console.log(loginResponse);
+        toast({
+          title: loginResponse.message,
+        });
+        if (loginResponse.success) router.replace("/");
       }
-
-      if (success) router.replace("/");
     },
   );
 
@@ -110,9 +110,7 @@ export default function SignupComponent(): JSX.Element {
                 </p>
               )}
             </div>
-            <Button className="w-full mt-4 rounded-full" type="submit">
-              Signup
-            </Button>
+            <SignupButton isDisabled={!isValid} />
           </div>
         </form>
       </CardContent>
@@ -122,12 +120,25 @@ export default function SignupComponent(): JSX.Element {
           <Button
             onClick={() => router.replace("/login")}
             variant={"link"}
-            className="text-indigo-600 hover:underline"
+            className="text-indigo-400 hover:underline"
           >
             Login
           </Button>
         </div>
       </CardFooter>
     </Card>
+  );
+}
+
+function SignupButton({ isDisabled = false }: { isDisabled?: boolean }) {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      disabled={pending || isDisabled}
+      className="w-full mt-4 rounded-full"
+      type="submit"
+    >
+      {pending ? "Signing up..." : "Signup"}
+    </Button>
   );
 }

@@ -2,7 +2,7 @@ import LoginComponent from "@/components/login";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "OpXpress | Login",
+  title: "OpXpress - Login",
 };
 
 /**
