@@ -11,7 +11,7 @@ export async function verifyAccessToken(): Promise<boolean> {
     const {
       data: { success },
     } = await axios.get<{ success: boolean; message: string }>(
-      "/verify-access-token",
+      "/auth/verify-access-token",
     );
     return success;
   } catch (error) {

@@ -4,7 +4,6 @@ import authRouter from "./auth.route"; // Import authentication routes
 import cartRouter from "./cart.route"; // Import cart routes
 import orderRouter from "./order.route"; // Import order routes
 import productRouter from "./product.route"; // Import product routes
-import type { ExpressRequest, ExpressResponse } from "../config/types";
 
 const globalRouter = Router(); // Create a new router instance for global routes
 
@@ -19,14 +18,5 @@ globalRouter.use("/cart", RequireAuth, cartRouter); // All requests to /cart wil
 
 // Route for handling order-related requests, requires authentication
 globalRouter.use("/order", RequireAuth, orderRouter); // All requests to /order will be handled by orderRouter and require authentication
-
-// Route for verifying the access token
-globalRouter.get(
-  "/verify-access-token",
-  RequireAuth,
-  (_, res: ExpressResponse) => {
-    res.json({ success: true, message: "Access token valid" });
-  },
-);
 
 export default globalRouter; // Export the router instance for use in other parts of the application
