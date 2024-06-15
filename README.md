@@ -259,7 +259,7 @@ There are `.env.example` files in both the `client` and `server` directories tha
 
 - Click on "Deploy" and wait for the deployment process to complete.
 
-By following these steps, you'll have successfully deployed both the Next.js front-end and the Express.js API for your OpXpress-2.0 project on Vercel.
+> By following these steps, you'll have successfully deployed both the Next.js front-end and the Express.js API for your OpXpress-2.0 project on Vercel.
 
 #### Access the Deployed Application:
 
@@ -273,7 +273,3 @@ By following these steps, you'll have successfully deployed both the Next.js fro
 - Email: sushhantpandey@gmail.com
 - LinkedIn: [https://linkedin.com/in/mskp](https://linkedin.com/in/mskp)
 - All Links: [https://linktr.ee/isushant](https://linktr.ee/isushant)
-
-```
-
-```
