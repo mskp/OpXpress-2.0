@@ -13,6 +13,7 @@
 
 - **Front-end:** https://opxpress2.sushant.fun
 - **Back-end:** https://api.opxpress2.sushant.fun
+- **API Documentation:** https://documenter.getpostman.com/view/31476421/2sA3XQhMgU
 
 ## About the App:
 
