@@ -33,7 +33,6 @@ async function OrdersPage(): Promise<JSX.Element> {
   try {
     data = await fetchOrders();
   } catch (error) {
-    console.log(error);
     return <ErrorComponent message="Orders could not be fetched" />;
   }
 

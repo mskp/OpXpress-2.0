@@ -51,7 +51,6 @@ export default function SignupComponent(): JSX.Element {
       if (signupResponse.success) {
         const loginResponse = await login(credentials);
 
-        console.log(loginResponse);
         toast({
           title: loginResponse.message,
         });

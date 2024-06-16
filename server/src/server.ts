@@ -1,6 +1,6 @@
-import app from "./app.js";
+import app from "./app";
 import { PORT } from "./config/consts";
-import logger from "./config/logger.js";
+import logger from "./config/logger";
 
 // Start the server and listen on the specified port
 app.listen(PORT, () => {

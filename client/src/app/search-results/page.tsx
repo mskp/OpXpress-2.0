@@ -49,7 +49,6 @@ export default async function SearchResults({
   try {
     data = await fetchSearchResults(q);
   } catch (error) {
-    console.log(error);
     return <ErrorComponent message="Orders could not be fetched" />;
   }
 

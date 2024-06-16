@@ -40,7 +40,6 @@ export default function LoginComponent(): JSX.Element {
    */
   const onSubmit: () => void = handleSubmit(
     async (credentials: LoginSchema) => {
-      console.log("API");
       const { message, success } = await login(credentials);
 
       toast({

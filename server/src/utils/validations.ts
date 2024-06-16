@@ -41,8 +41,8 @@ export const fetchProductsQuerySchema = z.object({
  */
 export const searchProductsQuerySchema = z.object({
   q: z.string().min(1, "Search query is required"),
-  limit: z.number().int().optional(),
-  offset: z.number().int().optional(),
+  limit: z.coerce.number().int().optional(),
+  offset: z.coerce.number().int().optional(),
 });
 
 /**

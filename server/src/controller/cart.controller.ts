@@ -222,7 +222,9 @@ export async function UpdateCartItem(
     });
 
     if (!existingCartItem) {
-      return res.status(404).send("Cart item does not exist.");
+      return res
+        .status(404)
+        .json({ message: "Cart item does not exist.", success: false });
     }
 
     // Calculate the new quantity
@@ -231,9 +233,10 @@ export async function UpdateCartItem(
       case "INCREASE_QUANTITY":
         newQuantity = existingCartItem.quantity + 1;
         if (newQuantity > MAX_CART_ITEM_QUANTITY) {
-          return res
-            .status(400)
-            .send(`Quantity cannot exceed ${MAX_CART_ITEM_QUANTITY}`);
+          return res.status(400).json({
+            message: `Quantity cannot exceed ${MAX_CART_ITEM_QUANTITY}`,
+            success: false,
+          });
         }
         break;
       case "DECREASE_QUANTITY":

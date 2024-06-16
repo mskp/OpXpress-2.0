@@ -33,7 +33,6 @@ async function CartPage(): Promise<JSX.Element> {
   try {
     data = await fetchCartInfo();
   } catch (error) {
-    console.log(error);
     return <ErrorComponent message="Cart items could not be fetched" />;
   }
 

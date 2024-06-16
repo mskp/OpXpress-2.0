@@ -42,7 +42,6 @@ async function Products({
       data = await fetchProducts(category);
     }
   } catch (error) {
-    console.log(error);
     return <ErrorComponent message="Products could not be fetched" />;
   }
 
